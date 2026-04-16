@@ -18,7 +18,7 @@ import test, { chromium, expect } from "@playwright/test";
 
 test('Verify login as a user with valid credentials', async ({ page }) => {
   // 1. Open Login page
-  await page.goto('https://practicesoftwaretesting.com/auth/login');
+  await page.goto('/auth/login');
 
   // 2. Fill in login form
   await page.getByTestId('email').fill('customer@practicesoftwaretesting.com');
@@ -26,7 +26,7 @@ test('Verify login as a user with valid credentials', async ({ page }) => {
   await page.getByTestId('login-submit').click();
 
   // 3. Verify successful login
-  await expect(page).toHaveURL('https://practicesoftwaretesting.com/account');
+  await expect(page).toHaveURL(/\/account$/);
   await expect(page.getByTestId('page-title')).toHaveText('My account');
   await expect(page.getByTestId('nav-menu')).toHaveText('Jane Doe');
 });
