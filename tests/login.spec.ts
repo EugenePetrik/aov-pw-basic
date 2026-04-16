@@ -22,16 +22,20 @@ test('Verify login as a user with valid credentials', async ({ page }) => {
 
   const { email, password, username } = regularUser;
 
-  // 1. Open Login page
-  await page.goto('/auth/login');
+  await test.step('Open Login page', async () => {
+    await page.goto('/auth/login');
+  });
 
-  // 2. Fill in login form
-  await page.getByTestId('email').fill(email);
-  await page.getByTestId('password').fill(password);
-  await page.getByTestId('login-submit').click();
+  await test.step('Fill in login form', async () => {
+    await page.getByTestId('email').fill(email);
+    await page.getByTestId('password').fill(password);
+    await page.getByTestId('login-submit').click();
+  });
 
-  // 3. Verify successful login
-  await expect(page).toHaveURL(/\/account$/);
-  await expect(page.getByTestId('page-title')).toHaveText('My account');
-  await expect(page.getByTestId('nav-menu')).toHaveText(username);
+  await test.step('Verify successful login', async () => {
+    await expect(page).toHaveURL(/\/account$/);
+
+    await expect(page.getByTestId('page-title')).toHaveText('My account');
+    await expect(page.getByTestId('nav-menu')).toHaveText(username);
+  });
 });
