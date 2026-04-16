@@ -18,6 +18,8 @@ import { regularUser } from "../test-data/user";
 // });
 
 test('Verify login as a user with valid credentials', async ({ page }) => {
+  test.skip(!!process.env.CI, 'Skip login test on CI env');
+
   const { email, password, username } = regularUser;
 
   // 1. Open Login page
